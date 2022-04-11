@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UsernameController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,25 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+//récupère la route depuis le Controller et passe en paramètre la fonction qui appel la vue
+Route::get('/', [UsernameController::class, 'index'])->name('welcome');
 
-    return view('Welcome');
+//Cherche la vue "userParameter" dans le controller et passe par la fonction  "ModifyUsername", le "whereNumber" vérifie si le paramètre est bien un "id"
+Route::get('/userParameter/{id}', [UsernameController::class, 'modifyUsername'])->name('teacher.id');
 
-});
-
-
-
-Route::get('/bonjour/{prenom}', function () {
-    $prenom = request('prenom');
-    return view('bonjour', [
-    
-        'prenom' => $prenom,
-    ]);
-
-});
-
-Route::get('/inscription', function () {
-    
-    return view('inscription');
-
-});
+Route::get('/login', [UsernameController::class, 'login'])->name('login');
